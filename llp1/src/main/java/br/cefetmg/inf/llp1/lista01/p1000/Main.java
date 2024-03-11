@@ -1,4 +1,4 @@
-package br.cefetmg.inf.llp1.lista01.p1000;
+package br.cefetmg.inf.llp1.lista1.p1000;
 
 public class Main {
     public static void main(String[] args) {
