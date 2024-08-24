@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.cefetmg.inf.llp1.lista08.p1042.filaEncadeada;
 
 import java.util.Scanner;
@@ -38,7 +34,7 @@ class Fila {
         quantos = 0;
     }
     
-    public boolean vazia() {
+    private boolean vazia() {
         return (quantos == 0);
     }
     
