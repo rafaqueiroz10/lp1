@@ -85,7 +85,7 @@ class Fila {
     
     public void printar() {
         for(No aux = inicio; aux != null; aux = aux.getProx()) {
-            System.out.println(aux.getValor());
+            System.out.println(remover());
         }
     }
     
