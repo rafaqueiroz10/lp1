@@ -1,62 +1,49 @@
-package br.cefetmg.inf.llp1.lista09.p1068a;
+package br.cefetmg.inf.llp1.lista09.p1068b;
 
 import java.util.Scanner;
 
-class No {
-    private Character ch;
-    private No prox;
-    
-    public void setCh(Character c) {
-        ch = c;
-    }
-    
-    public Character getCh() {
-        return ch;
-    }
-    
-    public void setProx(No no) {
-        prox = no;
-    }
-    
-    public No getProx() {
-        return prox;
-    }
-}
-
 class Pilha {
-    private No topo;
-    private int tam;
+    private int topo, capacidade, tam;
+    private Character ch[];
     
-    Pilha() {
-        topo = null;
+    public Pilha(int c) {
+        capacidade = c;
+        topo = -1;
+        ch = new Character[capacidade];
         tam = 0;
     }
     
-    public void empilhar (Character ch){
-        No novo = new No();
-        novo.setCh(ch);
-        novo.setProx(topo);
-        topo = novo;
+    private void redimensionar() {
+        Character novoCh[] = new Character[capacidade * 2];
+        System.arraycopy(ch, 0, novoCh, 0, capacidade);
+        capacidade *= 2;
+        ch = novoCh;
+    }
+    
+    public void empilhar (Character c){
+        if(topo == capacidade-1)
+            redimensionar();
+        
+        topo++;
+        ch[topo] = c;
         tam++;
+    }
+    
+    public int tamanho() {
+        return tam;
     }
     
     public Character desempilhar() {
         if(vazia())
             return null;
         
-        Character ch = topo.getCh();
-        No aux = topo;
-        topo = topo.getProx();
+        Character c = ch[topo--];
         tam--;
-        return ch;
+        return c;
     }
     
     public boolean vazia() {
-        return (tam == 0);
-    }
-    
-    public int tamanho() {
-        return tam;
+        return (topo == -1);
     }
 }
 
@@ -66,7 +53,7 @@ public class Main {
    
         while(input.hasNext()) {
             String expressao = input.nextLine();
-            Pilha pilha = new Pilha();
+            Pilha pilha = new Pilha(3);
             boolean correto = true;
             
             for(int i = 0; i < expressao.length(); i++) {
