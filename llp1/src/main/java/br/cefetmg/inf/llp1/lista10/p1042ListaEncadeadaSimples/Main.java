@@ -1,5 +1,7 @@
 package br.cefetmg.inf.llp1.lista10.p1042ListaEncadeadaSimples;
 
+import java.util.Scanner;
+
 enum StatusLista {SUCESSO, POSICAOINVALIDA};
 
 class Lista {
@@ -37,11 +39,37 @@ class Lista {
     
     // insere item no início da lista
     public void inserirInicio(Integer item) {
-    
+        No novo = new No();
+        novo.item = item;
+        
+        if (vazia()) {
+            fim = novo;
+            inicio = novo;
+            novo.proximo = null;
+        }
+        else {
+            novo.proximo = inicio;
+            inicio = novo;
+        }
     }
     
     // insere item no final da lista
-    public void inserirFim(Integer item) { 
+    public void inserirFim(Integer item) {
+        No novo = new No();
+        novo.item = item;
+        
+        if (vazia()) {
+            fim = novo;
+            inicio = novo;
+            novo.proximo = null;
+        }
+        else {
+            fim.proximo = novo;
+            fim = novo;
+            fim.proximo = null;
+        }
+        
+        quantos++;
     }
     
     // insere item na 'posisao' da lista
@@ -56,15 +84,49 @@ class Lista {
     
     // remove item no início da lista
     // retorna null se lista vazia
-    public Integer removerInicio() { return null; }
+    public Integer removerInicio() { 
+        Integer valorRemovido = inicio.item;
+        No prox = inicio.proximo;
+        inicio = prox;
+        return valorRemovido;
+    }
     
     // remove item no final da lista
     // retorna null se lista vazia
-    public Integer removerFim() { return null; }
+    public Integer removerFim() {
+        Integer valorRemovido = fim.item;
+        No anterior = fim.getAnterior();
+        anterior.setProx(null);
+        fim = anterior; 
+        return valorRemovido;
+    }
     
     // remove item na 'posicao' da lista
     // retorna null se posicao inválida
-    public Integer remover(int posicao) { return null; }
+    public Integer remover(int posicao) {
+        int p = 0;
+        for (No aux = inicio; aux != null;) {
+            if (p == posicao) {
+                if (aux == inicio) 
+                    removerInicio();
+                else if (aux == fim) {
+                    removerFim();
+                }
+                else {
+                    No anterior = aux.getAnterior();
+                    No proximo = aux.getProx();
+                    proximo.setAnterior(anterior);
+                    anterior->prox = proximo;
+                    aux = proximo;
+                }
+                li->quantos--;
+            }
+            else {
+                p++;
+                aux = aux->prox;
+            }
+        }
+    }
     
     // retorna, sem remover, o item no início da lista
     // null se lista vazia
@@ -97,19 +159,39 @@ class Lista {
     // retorna posição do item; 
     // -1 em caso contrário
     public int pesquisar (Integer item) {
-        int p = 0;
+        int posicao = 0;
         for(No aux = inicio; aux != null; aux = aux.proximo) {
             if(aux.item == item)
-                return aux.item;
+                return posicao;
             
-            p++;
+            posicao++;
         }
         return -1; 
+    }
+    
+    public void ordenar() {
+        
+    }
+    
+    public void exibir() {
+        
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        
+        Scanner input = new Scanner(System.in);
+        int a = input.nextInt();
+        int b = input.nextInt();
+        int c = input.nextInt();
+        Lista l1 = new Lista();
+        l1.inserirFim(a);
+        l1.inserirFim(b);
+        l1.inserirFim(c);
+        Lista l2 = l1;
+        l1.ordenar();
+        l1.exibir();
+        System.out.println();
+        l2.exibir();
     }
 }
