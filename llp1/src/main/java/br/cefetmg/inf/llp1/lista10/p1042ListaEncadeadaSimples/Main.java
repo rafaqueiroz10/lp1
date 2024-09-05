@@ -78,7 +78,15 @@ class Lista {
     public StatusLista inserir(Integer item, int posicao) { 
         if (posicao < 0 || posicao > tamanho())
             return StatusLista.POSICAOINVALIDA;
-             
+            
+        for(No aux = inicio; aux != null; aux = aux.proximo) {
+            if(aux == inicio)
+                inserirInicio(item);
+            else if(aux == fim)
+                inserirFim(item);
+            else 
+                
+        }
         return StatusLista.SUCESSO;
     }
     
@@ -86,8 +94,7 @@ class Lista {
     // retorna null se lista vazia
     public Integer removerInicio() { 
         Integer valorRemovido = inicio.item;
-        No prox = inicio.proximo;
-        inicio = prox;
+        inicio = inicio.proximo; 
         return valorRemovido;
     }
     
@@ -95,38 +102,41 @@ class Lista {
     // retorna null se lista vazia
     public Integer removerFim() {
         Integer valorRemovido = fim.item;
-        No anterior = fim.getAnterior();
-        anterior.setProx(null);
-        fim = anterior; 
+        int posicao = 0;
+        
+        No aux = inicio;
+        while(posicao != tamanho()-2) {
+            aux = aux.proximo;
+            posicao++;
+        } 
+        aux.proximo = null;
         return valorRemovido;
     }
     
     // remove item na 'posicao' da lista
     // retorna null se posicao inválida
-    public Integer remover(int posicao) {
+    /*public Integer remover(int posicao) {
         int p = 0;
         for (No aux = inicio; aux != null;) {
             if (p == posicao) {
                 if (aux == inicio) 
                     removerInicio();
-                else if (aux == fim) {
+                else if (aux == fim) 
                     removerFim();
-                }
                 else {
-                    No anterior = aux.getAnterior();
-                    No proximo = aux.getProx();
-                    proximo.setAnterior(anterior);
-                    anterior->prox = proximo;
-                    aux = proximo;
+                    int pos = 0;
+                    for(No aux = inicio.proximo; pos == p-1; aux = aux.proximo) {
+                        
+                    }
                 }
-                li->quantos--;
+                quantos--;
             }
             else {
                 p++;
-                aux = aux->prox;
+                aux = aux.proximo;
             }
         }
-    }
+    }*/
     
     // retorna, sem remover, o item no início da lista
     // null se lista vazia
@@ -169,12 +179,26 @@ class Lista {
         return -1; 
     }
     
+    private void troca(No a, No b) {
+        No aux = a;
+        a = b;
+        b = aux;
+    }
+    
     public void ordenar() {
-        
+        for(No aux = inicio; aux != null; aux = aux.proximo) 
+            for(No aux2 = inicio; aux2 != null; aux = aux.proximo) 
+                if(aux.item > aux2.item) 
+                    troca(aux, aux2);
+                    
     }
     
     public void exibir() {
-        
+        No aux = inicio;
+        while(aux != null) {
+            System.out.println(aux.item);
+            aux = aux.proximo;
+        } 
     }
 }
 
