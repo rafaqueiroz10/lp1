@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 enum StatusLista {SUCESSO, POSICAOINVALIDA};
 
+// erros no código(método inserir)
 class Lista {
     static class No {
         Integer item;
@@ -26,6 +27,12 @@ class Lista {
     private int quantos;
     private No inicio, fim;
     
+    Lista() {
+        inicio = null;
+        fim = null;
+        quantos = 0;
+    }
+    
     // número de itens na lista
     public int tamanho() { 
         return quantos;
@@ -39,8 +46,7 @@ class Lista {
     
     // insere item no início da lista
     public void inserirInicio(Integer item) {
-        No novo = new No();
-        novo.item = item;
+        No novo = new No(item);
         
         if (vazia()) {
             fim = novo;
@@ -55,8 +61,7 @@ class Lista {
     
     // insere item no final da lista
     public void inserirFim(Integer item) {
-        No novo = new No();
-        novo.item = item;
+        No novo = new No(item);
         
         if (vazia()) {
             fim = novo;
@@ -84,46 +89,88 @@ class Lista {
         else if(posicao == tamanho()-1)
             inserirFim(item);
         else {
-            for(No aux = inicio.proximo; aux != fim; aux = aux.proximo) {
-                
+            int p = 0;
+            No novo = new No(item);
+            No anterior = null;
+            for(No aux = inicio.proximo; aux != null; aux = aux.proximo) {
+                if(p == posicao-1) {
+                    anterior = aux;
+                }
+                else if(p == posicao) {
+                    novo.proximo = anterior.proximo;
+                    anterior.proximo = novo;
+                    break;
+                }
+                p++;
             }
         }
-
+        quantos++;
         return StatusLista.SUCESSO;
     }
     
     // remove item no início da lista
     // retorna null se lista vazia
     public Integer removerInicio() { 
+        if(vazia())
+            return null;
+        
         Integer valorRemovido = inicio.item;
-        inicio = inicio.proximo; 
+        inicio = inicio.proximo;
+        quantos--;
         return valorRemovido;
     }
     
     // remove item no final da lista
     // retorna null se lista vazia
     public Integer removerFim() {
+        if(vazia())
+            return null;
+        
         Integer valorRemovido = fim.item;
         int posicao = 0;
         
-        No aux = inicio;
-        while(posicao != tamanho()-2) {
-            aux = aux.proximo;
-            posicao++;
-        } 
-        aux.proximo = null;
+        if(inicio == fim) {
+            inicio = null;
+            fim = null;
+        }
+        else {
+            No aux = inicio;
+            while(aux != null && posicao != tamanho()-2) {
+                aux = aux.proximo;
+                posicao++;
+            } 
+            aux.proximo = null;
+            fim = aux;
+        }
+        quantos--;
         return valorRemovido;
     }
     
     // remove item na 'posicao' da lista
     // retorna null se posicao inválida
-    /* public Integer remover(int posicao) {
+    public Integer remover(int posicao) {
+        if(vazia() || posicao < 0 || posicao > tamanho())
+            return null;
+        if(posicao == 0)
+            return removerInicio();
+        if(posicao == tamanho()-1)
+            return removerFim();
+        
         int p = 0;
-        for (No aux = inicio; p == posicao-2; p++, aux = aux.proximo) {
-            
+        No anterior = null;
+        Integer valorRemovido = null;
+        for (No aux = inicio.proximo; aux != null; p++, aux = aux.proximo) {
+            if(p == posicao-1)
+                anterior = aux;
+            else if(p == posicao) {
+                valorRemovido = aux.item;
+                anterior.proximo = aux.proximo;
+                break;
+            }
             quantos--;
         }
-    } */
+        return valorRemovido;
+    }
     
     // retorna, sem remover, o item no início da lista
     // null se lista vazia
@@ -140,7 +187,7 @@ class Lista {
     // retorna, sem remover, o item na posição indicada 
     // null se for posição inválida
     public Integer obter(int posicao) {
-        if(posicao > tamanho() || posicao < 0)
+        if(vazia() || posicao > tamanho() || posicao < 0)
             return null;
         
         int p = 0;
@@ -156,6 +203,9 @@ class Lista {
     // retorna posição do item; 
     // -1 em caso contrário
     public int pesquisar (Integer item) {
+        if(vazia())
+            return -1;
+        
         int posicao = 0;
         for(No aux = inicio; aux != null; aux = aux.proximo) {
             if(aux.item == item)
@@ -173,6 +223,9 @@ class Lista {
     }
     
     public void ordenar() {
+        if(vazia())
+            return;
+        
         for(No aux = inicio; aux != null; aux = aux.proximo) 
             for(No aux2 = aux.proximo; aux2 != null; aux2 = aux2.proximo) 
                 if(aux.item > aux2.item) 
@@ -181,6 +234,9 @@ class Lista {
     }
     
     public void exibir() {
+        if(vazia())
+            return;
+        
         No aux = inicio;
         while(aux != null) {
             System.out.println(aux.item);
@@ -196,13 +252,13 @@ public class Main {
         int b = input.nextInt();
         int c = input.nextInt();
         Lista l1 = new Lista();
-        l1.inserirFim(a);
-        l1.inserirFim(b);
-        l1.inserirFim(c);
+        l1.inserir(a, 0);
+        l1.inserir(b, 1);
+        l1.inserir(c, 2);
         Lista l2 = new Lista();
-        l2.inserirFim(a);
-        l2.inserirFim(b);
-        l2.inserirFim(c);
+        l2.inserir(a, 0);
+        l2.inserir(b, 1);
+        l2.inserir(c, 2);
         l1.ordenar();
         l1.exibir();
         System.out.println();
