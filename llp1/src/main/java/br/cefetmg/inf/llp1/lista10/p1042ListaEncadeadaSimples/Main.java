@@ -78,15 +78,17 @@ class Lista {
     public StatusLista inserir(Integer item, int posicao) { 
         if (posicao < 0 || posicao > tamanho())
             return StatusLista.POSICAOINVALIDA;
-            
-        for(No aux = inicio; aux != null; aux = aux.proximo) {
-            if(aux == inicio)
-                inserirInicio(item);
-            else if(aux == fim)
-                inserirFim(item);
-            else 
+
+        if(posicao == 0)
+            inserirInicio(item);
+        else if(posicao == tamanho()-1)
+            inserirFim(item);
+        else {
+            for(No aux = inicio.proximo; aux != fim; aux = aux.proximo) {
                 
+            }
         }
+
         return StatusLista.SUCESSO;
     }
     
@@ -115,28 +117,13 @@ class Lista {
     
     // remove item na 'posicao' da lista
     // retorna null se posicao inválida
-    /*public Integer remover(int posicao) {
+    /* public Integer remover(int posicao) {
         int p = 0;
-        for (No aux = inicio; aux != null;) {
-            if (p == posicao) {
-                if (aux == inicio) 
-                    removerInicio();
-                else if (aux == fim) 
-                    removerFim();
-                else {
-                    int pos = 0;
-                    for(No aux = inicio.proximo; pos == p-1; aux = aux.proximo) {
-                        
-                    }
-                }
-                quantos--;
-            }
-            else {
-                p++;
-                aux = aux.proximo;
-            }
+        for (No aux = inicio; p == posicao-2; p++, aux = aux.proximo) {
+            
+            quantos--;
         }
-    }*/
+    } */
     
     // retorna, sem remover, o item no início da lista
     // null se lista vazia
@@ -158,9 +145,9 @@ class Lista {
         
         int p = 0;
         for(No aux = inicio; aux != null; aux = aux.proximo) {
-            if(p == posicao)
+            if(p == posicao) 
                 return aux.item;
-            
+
             p++;
         }
         return null; 
@@ -180,14 +167,14 @@ class Lista {
     }
     
     private void troca(No a, No b) {
-        No aux = a;
-        a = b;
-        b = aux;
+        Integer aux = a.item;
+        a.item = b.item;
+        b.item = aux;
     }
     
     public void ordenar() {
         for(No aux = inicio; aux != null; aux = aux.proximo) 
-            for(No aux2 = inicio; aux2 != null; aux = aux.proximo) 
+            for(No aux2 = aux.proximo; aux2 != null; aux2 = aux2.proximo) 
                 if(aux.item > aux2.item) 
                     troca(aux, aux2);
                     
@@ -212,7 +199,10 @@ public class Main {
         l1.inserirFim(a);
         l1.inserirFim(b);
         l1.inserirFim(c);
-        Lista l2 = l1;
+        Lista l2 = new Lista();
+        l2.inserirFim(a);
+        l2.inserirFim(b);
+        l2.inserirFim(c);
         l1.ordenar();
         l1.exibir();
         System.out.println();
