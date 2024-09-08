@@ -27,10 +27,14 @@ class Lista {
     private int quantos;
     No inicio, fim;
     
-    Lista() {
-        inicio = null;
-        fim = null;
-        quantos = 0;
+    public Lista() {
+        this(null, null, 0);
+    }
+    
+    public Lista(No inicio, No fim, int quantos) {
+        this.inicio = inicio;
+        this.fim = fim;
+        this.quantos = quantos;
     }
     
     // número de itens na lista
@@ -94,16 +98,17 @@ class Lista {
         else {
             int p = 1;
             No novo = new No(item);
-            No aux = inicio.proximo;
-            while(p < posicao && aux != null && aux != fim) {
-                p++;
+            No aux = inicio;
+            while(p < posicao) {
                 aux = aux.proximo;
+                p++;
             }
                         
             novo.proximo = aux.proximo;
             novo.anterior = aux;
             aux.proximo.anterior = novo;
             aux.proximo = novo;
+            quantos++;
         }
         return StatusLista.SUCESSO;
     }
@@ -140,7 +145,7 @@ class Lista {
     // remove item na 'posicao' da lista
     // retorna null se posicao inválida
     public Integer remover(int posicao) { 
-        if(posicao < 0 || posicao > tamanho())
+        if(posicao < 0 || posicao > tamanho()-1)
             return null;
         
         if(posicao == 0)
