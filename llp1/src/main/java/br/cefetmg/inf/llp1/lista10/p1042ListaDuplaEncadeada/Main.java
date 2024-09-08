@@ -1,4 +1,6 @@
-mport java.util.Scanner;
+package br.cefetmg.inf.llp1.lista10.p1042ListaDuplaEncadeada;
+
+import java.util.Scanner;
 
 enum StatusLista {SUCESSO, POSICAOINVALIDA};
 
