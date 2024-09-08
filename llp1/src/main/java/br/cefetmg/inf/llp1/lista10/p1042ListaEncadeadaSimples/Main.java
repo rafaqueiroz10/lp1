@@ -57,6 +57,7 @@ class Lista {
             novo.proximo = inicio;
             inicio = novo;
         }
+        quantos++;
     }
     
     // insere item no final da lista
@@ -86,25 +87,21 @@ class Lista {
 
         if(posicao == 0)
             inserirInicio(item);
-        else if(posicao == tamanho()-1)
+        else if(posicao == tamanho())
             inserirFim(item);
         else {
-            int p = 0;
+            int p = 1;
             No novo = new No(item);
-            No anterior = null;
-            for(No aux = inicio.proximo; aux != null; aux = aux.proximo) {
-                if(p == posicao-1) {
-                    anterior = aux;
-                }
-                else if(p == posicao) {
-                    novo.proximo = anterior.proximo;
-                    anterior.proximo = novo;
-                    break;
-                }
-                p++;
+            No aux = inicio;
+           
+            for (int i = 0; i < posicao - 1; i++) {
+                aux = aux.proximo;
             }
+            
+            novo.proximo = aux.proximo;
+            aux.proximo = novo;
+            quantos++;
         }
-        quantos++;
         return StatusLista.SUCESSO;
     }
     
@@ -127,7 +124,6 @@ class Lista {
             return null;
         
         Integer valorRemovido = fim.item;
-        int posicao = 0;
         
         if(inicio == fim) {
             inicio = null;
@@ -135,9 +131,8 @@ class Lista {
         }
         else {
             No aux = inicio;
-            while(aux != null && posicao != tamanho()-2) {
+            while(aux.proximo != fim) {
                 aux = aux.proximo;
-                posicao++;
             } 
             aux.proximo = null;
             fim = aux;
@@ -149,26 +144,22 @@ class Lista {
     // remove item na 'posicao' da lista
     // retorna null se posicao inválida
     public Integer remover(int posicao) {
-        if(vazia() || posicao < 0 || posicao > tamanho())
+        if(vazia() || posicao < 0 || posicao > tamanho()-1)
             return null;
         if(posicao == 0)
             return removerInicio();
         if(posicao == tamanho()-1)
             return removerFim();
         
-        int p = 0;
-        No anterior = null;
-        Integer valorRemovido = null;
-        for (No aux = inicio.proximo; aux != null; p++, aux = aux.proximo) {
-            if(p == posicao-1)
-                anterior = aux;
-            else if(p == posicao) {
-                valorRemovido = aux.item;
-                anterior.proximo = aux.proximo;
-                break;
-            }
-            quantos--;
+        Integer valorRemovido = obter(posicao);
+        No aux = inicio;
+        for (int i = 0; i < posicao - 1; i++) {
+            aux = aux.proximo;
         }
+        No proximo = aux.proximo;
+        aux.proximo = proximo.proximo;
+        quantos--;
+        
         return valorRemovido;
     }
     
@@ -187,7 +178,7 @@ class Lista {
     // retorna, sem remover, o item na posição indicada 
     // null se for posição inválida
     public Integer obter(int posicao) {
-        if(vazia() || posicao > tamanho() || posicao < 0)
+        if(vazia() || posicao > tamanho()-1 || posicao < 0)
             return null;
         
         int p = 0;
@@ -251,15 +242,18 @@ public class Main {
         int a = input.nextInt();
         int b = input.nextInt();
         int c = input.nextInt();
+        
         Lista l1 = new Lista();
         l1.inserir(a, 0);
         l1.inserir(b, 1);
         l1.inserir(c, 2);
+        
         Lista l2 = new Lista();
         l2.inserir(a, 0);
         l2.inserir(b, 1);
         l2.inserir(c, 2);
         l1.ordenar();
+        
         l1.exibir();
         System.out.println();
         l2.exibir();
