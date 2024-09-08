@@ -1,5 +1,4 @@
-package br.cefetmg.inf.llp1.lista10.p1042ListaDuplaEncadeada;
-import java.util.Scanner;
+mport java.util.Scanner;
 
 enum StatusLista {SUCESSO, POSICAOINVALIDA};
 
@@ -45,12 +44,38 @@ class Lista {
     
     // insere item no início da lista
     public void inserirInicio(Integer item) { 
-        
+        No novo = new No(item);
+        if(vazia()) {
+            inicio = novo;
+            fim = novo;
+            novo.anterior = null;
+            novo.proximo = null;
+        }
+        else {
+            novo.proximo = inicio;
+            inicio.anterior = novo;
+            novo.anterior = null;
+            inicio = novo;
+        }
+        quantos++;
     }
     
     // insere item no final da lista
     public void inserirFim(Integer item) { 
-    
+        No novo = new No(item);
+        if(vazia()) {
+            inicio = novo;
+            fim = novo;
+            novo.anterior = null;
+            novo.proximo = null;
+        }
+        else {
+            fim.proximo = novo;
+            novo.anterior = fim;
+            fim = novo;
+            fim.proximo = null;
+        }
+        quantos++;
     }
     
     // insere item na 'posisao' da lista
@@ -59,26 +84,79 @@ class Lista {
     public StatusLista inserir(Integer item, int posicao) { 
         if (posicao < 0 || posicao > tamanho())
             return StatusLista.POSICAOINVALIDA;
-             
+        
+        if(posicao == 0)
+            inserirInicio(item);
+        else if(posicao == tamanho())
+            inserirFim(item);
+        else {
+            int p = 1;
+            No novo = new No(item);
+            No aux = inicio.proximo;
+            while(p < posicao && aux != null && aux != fim) {
+                p++;
+                aux = aux.proximo;
+            }
+                        
+            novo.proximo = aux.proximo;
+            novo.anterior = aux;
+            aux.proximo.anterior = novo;
+            aux.proximo = novo;
+        }
         return StatusLista.SUCESSO;
     }
     
     // remove item no início da lista
     // retorna null se lista vazia
     public Integer removerInicio() { 
-        return null; 
+        if(vazia())
+            return null;
+        
+        Integer valorRemovido = obterInicio();
+        inicio = inicio.proximo;
+        quantos--;
+        return valorRemovido;
     }
     
     // remove item no final da lista
     // retorna null se lista vazia
     public Integer removerFim() {
-        return null; 
+        if(vazia())
+            return null;
+        
+        Integer valorRemovido = obterFim();
+        fim = fim.anterior;
+        quantos--;
+        if(vazia())
+            inicio = null;
+        else 
+            fim.proximo = null;
+        
+        return valorRemovido;
     }
     
     // remove item na 'posicao' da lista
     // retorna null se posicao inválida
     public Integer remover(int posicao) { 
-        return null; 
+        if(posicao < 0 || posicao > tamanho())
+            return null;
+        
+        if(posicao == 0)
+            return removerInicio();
+        if(posicao == tamanho()-1)
+            return removerFim();
+        
+        No aux = inicio.proximo;
+        int p = 1;
+        while(aux != null && p != posicao) {
+            aux = aux.proximo;
+            p++;
+        }
+        Integer valorRemovido = obter(p);
+        aux.anterior.proximo = aux.proximo;
+        aux.proximo.anterior = aux.anterior;
+        quantos--;
+        return valorRemovido;
     }
     
     // retorna, sem remover, o item no início da lista
@@ -96,13 +174,31 @@ class Lista {
     // retorna, sem remover, o item na posição indicada 
     // null se for posição inválida
     public Integer obter(int posicao) { 
-        return null; 
+        if(vazia() || posicao < 0 || posicao > tamanho())
+            return null; 
+        
+        int indice = 0;
+        for(No aux = inicio; aux != null; aux = aux.proximo)
+            if(indice == posicao)
+                return aux.item;
+        
+        return null;
     }
     
     // retorna posição do item; 
     // -1 em caso contrário
     public int pesquisar (Integer item) {
-        return 0; 
+        if(vazia())
+            return -1;
+        
+        int indice = 0;
+        for(No aux = inicio; aux != null; aux = aux.proximo) {
+            if(aux.item == item)
+                return indice;
+            
+            indice++;
+        }
+        return -1;
     }
     
     private void troca(No a, No b) {
