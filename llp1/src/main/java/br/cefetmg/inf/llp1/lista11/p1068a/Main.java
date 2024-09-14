@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     public static String verificarExpressao(String expressao) {
-        PilhaEncadeada pilha = new PilhaEncadeada();
+        PilhaAbstrata pilha = new PilhaEncadeada();
         for(int i = 0; i < expressao.length(); i++) {
             char caractere = expressao.charAt(i);
             if(caractere == '(') 
