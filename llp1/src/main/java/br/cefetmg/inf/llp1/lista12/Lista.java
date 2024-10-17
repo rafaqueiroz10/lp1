@@ -6,8 +6,8 @@ public interface Lista {
     public void inserirInicio(Object item);
     public void inserirFim(Object item);
     public void inserir(Object item, int posicao) throws PosicaoInvalidaException;
-    public Object removerInicio() throws PosicaoInvalidaException;
-    public Object removerFim() throws PosicaoInvalidaException;
+    public Object removerInicio() throws NenhumItemException;
+    public Object removerFim() throws NenhumItemException;
     public Object remover(int posicao) throws PosicaoInvalidaException, NenhumItemException;
     public Object obterInicio() throws NenhumItemException;
     public Object obterFim() throws NenhumItemException;
