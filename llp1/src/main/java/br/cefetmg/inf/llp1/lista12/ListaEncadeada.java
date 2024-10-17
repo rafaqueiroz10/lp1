@@ -92,9 +92,9 @@ public class ListaEncadeada extends ListaAbstrata {
     @Override
     // remove item no início da lista
     // retorna null se lista vazia
-    public Object removerInicio() throws PosicaoInvalidaException { 
+    public Object removerInicio() throws NenhumItemException { 
         if(vazia())
-            throw new PosicaoInvalidaException();
+            throw new NenhumItemException();
         
         Object valorRemovido = inicio.item;
         inicio = inicio.proximo;
@@ -105,9 +105,9 @@ public class ListaEncadeada extends ListaAbstrata {
     @Override
     // remove item no final da lista
     // retorna null se lista vazia
-    public Object removerFim() throws PosicaoInvalidaException {
+    public Object removerFim() throws NenhumItemException {
         if(vazia())
-            throw new PosicaoInvalidaException();
+            throw new NenhumItemException();
         
         Object valorRemovido = fim.item;
         
@@ -131,8 +131,11 @@ public class ListaEncadeada extends ListaAbstrata {
     // remove item na 'posicao' da lista
     // retorna null se posicao inválida
     public Object remover(int posicao) throws PosicaoInvalidaException, NenhumItemException {
-        if(vazia() || posicao < 0 || posicao > tamanho()-1)
+        if(posicao < 0 || posicao > tamanho()-1)
             throw new PosicaoInvalidaException();
+        
+        if(vazia())
+            throw new NenhumItemException();
         
         if(posicao == 0)
             return removerInicio();
