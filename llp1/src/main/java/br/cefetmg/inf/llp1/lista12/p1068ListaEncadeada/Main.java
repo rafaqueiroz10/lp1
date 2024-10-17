@@ -7,29 +7,33 @@ import br.cefetmg.inf.llp1.lista12.PosicaoInvalidaException;
 import br.cefetmg.inf.llp1.lista12.ListaEncadeada;
 
 public class Main {
+    public static boolean validar(String expressao) throws PosicaoInvalidaException, NenhumItemException {
+        Lista lista = new ListaEncadeada();
+
+        for(int i = 0; i < expressao.length(); i++) {
+            char caractere = expressao.charAt(i);
+            if(caractere == '(') 
+                lista.inserir(caractere, lista.tamanho());
+            else if(caractere == ')') {
+                if(lista.vazia())
+                    return false;
+                    
+                lista.remover(lista.tamanho()-1);
+            }   
+        }
+           
+        if(!lista.vazia())
+            return false;
+       
+        return true;
+    }
     public static void main(String[] args) throws PosicaoInvalidaException, NenhumItemException {
         Scanner input = new Scanner(System.in);
        
         while(input.hasNext()) {
             String expressao = input.nextLine();
-            Lista lista = new ListaEncadeada();
-            boolean correto = true;
-            
-            for(int i = 0; i < expressao.length(); i++) {
-                if(expressao.charAt(i) == '(') 
-                    lista.inserir(expressao.charAt(i), lista.tamanho());
-                else if(expressao.charAt(i) == ')') {
-                    if(lista.remover(lista.tamanho()-1) == null) {
-                        correto = false;
-                        break;
-                    }
-                }
-            }
-            
-            if(!lista.vazia())
-                correto = false;
-        
-            System.out.println(correto ? "correct" : "incorrect");
+            boolean valido = validar(expressao);
+            System.out.println(valido ? "correct" : "incorrect");
         }
     }
 }
