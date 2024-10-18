@@ -5,9 +5,10 @@ public class ExibirLista {
         if(lista.vazia())
             throw new NenhumItemException();
         
-        while(!lista.vazia()) {
-            System.out.println(lista.obterInicio());
-            lista.removerInicio();
+        int posicao = 0;
+        while(posicao < lista.tamanho()-1) {
+            System.out.println(lista.obter(posicao));
+            posicao++;
         }
     }
 }

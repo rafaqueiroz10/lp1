@@ -27,7 +27,6 @@ public class ListaEncadeada extends ListaAbstrata {
     }
     
     @Override
-    // insere item no início da lista
     public void inserirInicio(Object item) {
         No novo = new No(item);
         
@@ -44,7 +43,6 @@ public class ListaEncadeada extends ListaAbstrata {
     }
     
     @Override
-    // insere item no final da lista
     public void inserirFim(Object item) {
         No novo = new No(item);
         
@@ -63,9 +61,6 @@ public class ListaEncadeada extends ListaAbstrata {
     }
     
     @Override
-    // insere item na 'posisao' da lista
-    // 'posicao' análoga ao índice dos arrays
-    // posição válida: posicao >= 0 && <= tamanho
     public void inserir(Object item, int posicao) throws PosicaoInvalidaException { 
         if (posicao < 0 || posicao > tamanho())
             throw new PosicaoInvalidaException();
@@ -90,8 +85,6 @@ public class ListaEncadeada extends ListaAbstrata {
     }
     
     @Override
-    // remove item no início da lista
-    // retorna null se lista vazia
     public Object removerInicio() throws NenhumItemException { 
         if(vazia())
             throw new NenhumItemException();
@@ -103,8 +96,6 @@ public class ListaEncadeada extends ListaAbstrata {
     }
     
     @Override
-    // remove item no final da lista
-    // retorna null se lista vazia
     public Object removerFim() throws NenhumItemException {
         if(vazia())
             throw new NenhumItemException();
@@ -128,8 +119,6 @@ public class ListaEncadeada extends ListaAbstrata {
     }
     
     @Override
-    // remove item na 'posicao' da lista
-    // retorna null se posicao inválida
     public Object remover(int posicao) throws PosicaoInvalidaException, NenhumItemException {
         if(posicao < 0 || posicao > tamanho()-1)
             throw new PosicaoInvalidaException();
@@ -155,17 +144,13 @@ public class ListaEncadeada extends ListaAbstrata {
     }
     
     @Override
-    // retorna, sem remover, o item no início da lista
-    // null se lista vazia
     public Object obterInicio() throws NenhumItemException {
         if(vazia())
             throw new NenhumItemException();
         
         return inicio.item;
     }
-    
-    // retorna, sem remover, o item no fim da lista
-    // null se lista vazia
+   
     public Object obterFim() throws NenhumItemException { 
         if (vazia())
             throw new NenhumItemException();
@@ -174,8 +159,6 @@ public class ListaEncadeada extends ListaAbstrata {
     }
     
     @Override
-    // retorna, sem remover, o item na posição indicada 
-    // null se for posição inválida
     public Object obter(int posicao) throws NenhumItemException, PosicaoInvalidaException {
         if(vazia()) 
            throw new NenhumItemException();
@@ -194,8 +177,6 @@ public class ListaEncadeada extends ListaAbstrata {
     }
     
     @Override
-    // retorna posição do item; 
-    // -1 em caso contrário
     public int pesquisar (Integer item) throws NenhumItemException  {
         if(vazia())
             throw new NenhumItemException();
