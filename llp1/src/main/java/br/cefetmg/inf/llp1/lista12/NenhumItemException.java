@@ -8,5 +8,7 @@ public class NenhumItemException extends Exception {
     public NenhumItemException(String mensagem) {
         super(mensagem);
     }
-    public NenhumItemException() {}
+    public NenhumItemException() {
+        super();
+    }
 }

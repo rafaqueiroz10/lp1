@@ -4,5 +4,7 @@ public class PosicaoInvalidaException extends Exception {
     public PosicaoInvalidaException(String mensagem) {
         super(mensagem);
     }
-    public PosicaoInvalidaException() {}
+    public PosicaoInvalidaException() {
+        super();
+    }
 }
