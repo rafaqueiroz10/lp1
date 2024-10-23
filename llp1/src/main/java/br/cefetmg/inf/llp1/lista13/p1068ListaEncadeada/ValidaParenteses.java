@@ -6,7 +6,7 @@ import br.cefetmg.inf.llp1.lista12.NenhumItemException;
 import br.cefetmg.inf.llp1.lista12.PosicaoInvalidaException;
 
 public class ValidaParenteses {
-    public static boolean validar(String expressao) {
+    public static boolean validar(String expressao) throws PosicaoInvalidaException, NenhumItemException {
         Lista lista = new ListaEncadeada();
 
         for(int i = 0; i < expressao.length(); i++) {
@@ -15,14 +15,20 @@ public class ValidaParenteses {
                 try {
                     lista.inserir(caractere, lista.tamanho());
                 }
-                catch(PosicaoInvalidaException e) {}
+                catch(PosicaoInvalidaException e) {
+                    throw new PosicaoInvalidaException();
+                }
             
             else if(caractere == ')') {
                 try {
                     lista.remover(lista.tamanho()-1);
                 }
-                catch(NenhumItemException e) {}
-                catch(PosicaoInvalidaException e) {}
+                catch(NenhumItemException e) {
+                    throw new NenhumItemException();
+                }
+                catch(PosicaoInvalidaException e) {
+                    throw new PosicaoInvalidaException();
+                }
             }
         }
            

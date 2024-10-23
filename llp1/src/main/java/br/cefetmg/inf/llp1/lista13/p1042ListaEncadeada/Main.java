@@ -5,8 +5,6 @@
 package br.cefetmg.inf.llp1.lista13.p1042ListaEncadeada;
 
 import br.cefetmg.inf.llp1.lista13.ListaEncadeada;
-import br.cefetmg.inf.llp1.lista13.ExibirLista;
-import br.cefetmg.inf.llp1.lista13.Lista;
 import br.cefetmg.inf.llp1.lista13.NenhumItemException;
 import br.cefetmg.inf.llp1.lista13.PosicaoInvalidaException;
 import java.util.Scanner;
@@ -19,28 +17,28 @@ public class Main {
         int c = input.nextInt();
         
         ListaEncadeada l1 = new ListaEncadeada();
+        ListaEncadeada l2 = new ListaEncadeada();
+        
         try {
             l1.inserir(a, 0);
             l1.inserir(b, 1);
             l1.inserir(c, 2);
-        }
-        catch(PosicaoInvalidaException e) {}
         
-        Lista l2 = new ListaEncadeada();
-        try {
             l2.inserir(a, 0);
             l2.inserir(b, 1);
             l2.inserir(c, 2);
-        }
-        catch(PosicaoInvalidaException e) {}
         
-        try {
             l1 = l1.ordenar();
-        }
-        catch(NenhumItemException e) {}
         
-        ExibirLista.exibir(l1);
-        System.out.println();
-        ExibirLista.exibir(l2);
+            ExibirLista.exibir(l1);
+            System.out.println();
+            ExibirLista.exibir(l2);
+        }
+        catch(NenhumItemException e) {
+            System.out.println(e.getMessage());
+        }
+        catch(PosicaoInvalidaException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

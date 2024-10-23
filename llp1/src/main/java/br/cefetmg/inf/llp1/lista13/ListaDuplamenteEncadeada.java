@@ -220,5 +220,28 @@ public class ListaDuplamenteEncadeada {
         }
         return -1;
     }
+    
+    private void troca(No a, No b) {
+        Object aux = a.item;
+        a.item = b.item;
+        b.item = aux;
+    }
+
+    public ListaDuplamenteEncadeada ordenar() throws NenhumItemException {
+        if(vazia())
+            throw new NenhumItemException();
+        
+        ListaDuplamenteEncadeada lista = new ListaDuplamenteEncadeada();
+        
+        for(No i = inicio; i != null; i = i.proximo)
+            lista.inserirInicio(i.item);
+        
+        for(No aux = lista.inicio; aux != null; aux = aux.proximo) 
+            for(No aux2 = aux.proximo; aux2 != null; aux2 = aux2.proximo) 
+                if((Integer)aux.item > (Integer)aux2.item) 
+                    troca(aux, aux2);
+        
+        return lista;
+    }
 
 }
