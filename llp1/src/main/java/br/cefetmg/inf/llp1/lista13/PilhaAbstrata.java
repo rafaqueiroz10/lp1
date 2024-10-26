@@ -16,13 +16,4 @@ public abstract class PilhaAbstrata implements Pilha {
     public boolean vazia() {
         return (tamanho() == 0);
     }
-    
-    @Override
-    public abstract Object desempilhar() throws NenhumItemException;
-    
-    @Override
-    public abstract Object getTopo() throws NenhumItemException;
-    
-    @Override
-    public abstract void empilhar(Object valor);
 }

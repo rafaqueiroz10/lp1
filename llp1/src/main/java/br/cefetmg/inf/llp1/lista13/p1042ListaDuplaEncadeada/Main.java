@@ -1,5 +1,7 @@
 package br.cefetmg.inf.llp1.lista13.p1042ListaDuplaEncadeada;
 
+import br.cefetmg.inf.llp1.lista13.Lista;
+import br.cefetmg.inf.llp1.lista13.ExibirLista;
 import br.cefetmg.inf.llp1.lista13.ListaDuplamenteEncadeada;
 import br.cefetmg.inf.llp1.lista13.NenhumItemException;
 import br.cefetmg.inf.llp1.lista13.PosicaoInvalidaException;
@@ -12,8 +14,8 @@ public class Main {
         int b = input.nextInt();
         int c = input.nextInt();
         
-        ListaDuplamenteEncadeada l1 = new ListaDuplamenteEncadeada();
-        ListaDuplamenteEncadeada l2 = new ListaDuplamenteEncadeada();
+        Lista l1 = new ListaDuplamenteEncadeada();
+        Lista l2 = new ListaDuplamenteEncadeada();
         
         try {
             l1.inserir(a, 0);

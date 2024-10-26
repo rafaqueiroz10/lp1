@@ -49,5 +49,8 @@ public interface Lista {
     
     //  obtem a posição de um item da lista
     // retorna a posição do item
-    public int pesquisar (Integer item) throws NenhumItemException;
+    public int pesquisar (Object item) throws NenhumItemException;
+    
+    // método para ordenar a lista
+    public Lista ordenar() throws NenhumItemException;
 }

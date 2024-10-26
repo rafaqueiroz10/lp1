@@ -1,9 +1,5 @@
 package br.cefetmg.inf.llp1.lista13;
 
-import br.cefetmg.inf.llp1.lista13.ListaAbstrata;
-import br.cefetmg.inf.llp1.lista13.NenhumItemException;
-import br.cefetmg.inf.llp1.lista13.PosicaoInvalidaException;
-
 public class ListaEncadeada extends ListaAbstrata {
     class No {
         Object item;
@@ -67,14 +63,13 @@ public class ListaEncadeada extends ListaAbstrata {
     @Override
     public void inserir(Object item, int posicao) throws PosicaoInvalidaException { 
         if (posicao < 0 || posicao > tamanho())
-            throw new PosicaoInvalidaException();
+            throw new PosicaoInvalidaException("Erro: posição inválida!!");
 
         if(posicao == 0)
             inserirInicio(item);
         else if(posicao == tamanho())
             inserirFim(item);
         else {
-            int p = 1;
             No novo = new No(item);
             No aux = inicio;
            
@@ -151,7 +146,7 @@ public class ListaEncadeada extends ListaAbstrata {
             throw new NenhumItemException();
         }
         catch(PosicaoInvalidaException e) {
-            throw new PosicaoInvalidaException();
+            throw new PosicaoInvalidaException("Erro: posição inválida!!");
         }
     }
     
@@ -163,6 +158,7 @@ public class ListaEncadeada extends ListaAbstrata {
         return inicio.item;
     }
    
+    
     public Object obterFim() throws NenhumItemException { 
         if (vazia())
             throw new NenhumItemException();
@@ -176,7 +172,7 @@ public class ListaEncadeada extends ListaAbstrata {
            throw new NenhumItemException();
             
         if(posicao > tamanho()-1 || posicao < 0)
-            throw new PosicaoInvalidaException();
+            throw new PosicaoInvalidaException("Erro: posição inválida!!");
         
         int p = 0;
         for(No aux = inicio; aux != null; aux = aux.proximo) {
@@ -189,7 +185,7 @@ public class ListaEncadeada extends ListaAbstrata {
     }
     
     @Override
-    public int pesquisar (Integer item) throws NenhumItemException  {
+    public int pesquisar (Object item) throws NenhumItemException  {
         if(vazia())
             throw new NenhumItemException();
         
@@ -209,7 +205,8 @@ public class ListaEncadeada extends ListaAbstrata {
         b.item = aux;
     }
     
-    public ListaEncadeada ordenar() throws NenhumItemException {
+    @Override
+    public Lista ordenar() throws NenhumItemException {
         if(vazia())
             throw new NenhumItemException();
         

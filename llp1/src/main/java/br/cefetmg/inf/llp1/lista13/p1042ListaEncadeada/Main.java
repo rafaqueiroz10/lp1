@@ -5,8 +5,11 @@
 package br.cefetmg.inf.llp1.lista13.p1042ListaEncadeada;
 
 import br.cefetmg.inf.llp1.lista13.ListaEncadeada;
+import br.cefetmg.inf.llp1.lista13.ExibirLista;
 import br.cefetmg.inf.llp1.lista13.NenhumItemException;
 import br.cefetmg.inf.llp1.lista13.PosicaoInvalidaException;
+import br.cefetmg.inf.llp1.lista13.Lista;
+
 import java.util.Scanner;
 
 public class Main {
@@ -16,8 +19,8 @@ public class Main {
         int b = input.nextInt();
         int c = input.nextInt();
         
-        ListaEncadeada l1 = new ListaEncadeada();
-        ListaEncadeada l2 = new ListaEncadeada();
+        Lista l1 = new ListaEncadeada();
+        Lista l2 = new ListaEncadeada();
         
         try {
             l1.inserir(a, 0);

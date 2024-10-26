@@ -1,6 +1,8 @@
 package br.cefetmg.inf.llp1.lista13;
 
-public class ListaDuplamenteEncadeada {
+import br.cefetmg.inf.llp1.lista13.ListaAbstrata;
+
+public class ListaDuplamenteEncadeada extends ListaAbstrata {
     class No {
         Object item;
         No proximo, anterior;
@@ -24,24 +26,12 @@ public class ListaDuplamenteEncadeada {
     private No inicio, fim;
     
     public ListaDuplamenteEncadeada() {
-        this(null, null, 0);
+        this(null, null);
     }
     
-    public ListaDuplamenteEncadeada(No inicio, No fim, int quantos) {
+    public ListaDuplamenteEncadeada(No inicio, No fim) {
         this.inicio = inicio;
         this.fim = fim;
-        this.quantos = quantos;
-    }
-    
-    // número de itens na lista
-    public int tamanho() { 
-        return quantos;
-    }
-    
-    // true se lista não possuir itens;
-    // false em caso contrário
-    public boolean vazia() { 
-        return (tamanho() == 0); 
     }
     
     // insere item no início da lista
@@ -85,7 +75,7 @@ public class ListaDuplamenteEncadeada {
     // posição válida: posicao >= 0 && <= tamanho
     public void inserir(Object item, int posicao) throws PosicaoInvalidaException { 
         if (posicao < 0 || posicao > tamanho())
-            throw new PosicaoInvalidaException();
+            throw new PosicaoInvalidaException("Erro: posição inválida!!");
         
         if(posicao == 0)
             inserirInicio(item);
@@ -119,7 +109,7 @@ public class ListaDuplamenteEncadeada {
             return item;   
         }
         catch(NenhumItemException e) {
-            throw new NenhumItemException();
+            throw new NenhumItemException("Erro: lista vazia!!");
         }
     }
     
@@ -138,7 +128,7 @@ public class ListaDuplamenteEncadeada {
             return item;
         }
         catch(NenhumItemException e) {
-            throw new NenhumItemException();
+            throw new NenhumItemException("Erro: lista vazia!!");
         }
     }
     
@@ -164,10 +154,10 @@ public class ListaDuplamenteEncadeada {
             return item;
         }
         catch(PosicaoInvalidaException e) {
-            throw new PosicaoInvalidaException();
+            throw new PosicaoInvalidaException("Erro: posição inválida!!");
         }
         catch(NenhumItemException e) {
-            throw new NenhumItemException();
+            throw new NenhumItemException("Erro: lista vazia!!");
         }
     }
     
@@ -175,7 +165,7 @@ public class ListaDuplamenteEncadeada {
     // null se lista vazia
     public Object obterInicio() throws NenhumItemException {
         if(vazia())
-            throw new NenhumItemException();
+            throw new NenhumItemException("Erro: lista vazia!!");
         
         return inicio.item;
     }
@@ -184,7 +174,7 @@ public class ListaDuplamenteEncadeada {
     // null se lista vazia
     public Object obterFim() throws NenhumItemException { 
         if(vazia())
-            throw new NenhumItemException();
+            throw new NenhumItemException("Erro: lista vazia!!");
         
         return fim.item;
     }
@@ -193,12 +183,12 @@ public class ListaDuplamenteEncadeada {
     // null se for posição inválida
     public Object obter(int posicao) throws NenhumItemException, PosicaoInvalidaException { 
         if(vazia())
-            throw new NenhumItemException();
+            throw new NenhumItemException("Erro: lista vazia!!");
         if(posicao < 0 || posicao > tamanho())
-            throw new PosicaoInvalidaException();
+            throw new PosicaoInvalidaException("Erro: posição inválida!!");
         
         int indice = 0;
-        for(No aux = inicio; aux != null; aux = aux.proximo)
+        for(No aux = inicio; aux != null; aux = aux.proximo, indice++)
             if(indice == posicao)
                 return aux.item;
         
@@ -209,7 +199,7 @@ public class ListaDuplamenteEncadeada {
     // -1 em caso contrário
     public int pesquisar (Object item) throws NenhumItemException {
         if(vazia())
-            throw new NenhumItemException();
+            throw new NenhumItemException("Erro: lista vazia!!");
         
         int indice = 0;
         for(No aux = inicio; aux != null; aux = aux.proximo) {
@@ -229,7 +219,7 @@ public class ListaDuplamenteEncadeada {
 
     public ListaDuplamenteEncadeada ordenar() throws NenhumItemException {
         if(vazia())
-            throw new NenhumItemException();
+            throw new NenhumItemException("Erro: lista vazia!!");
         
         ListaDuplamenteEncadeada lista = new ListaDuplamenteEncadeada();
         
@@ -243,5 +233,4 @@ public class ListaDuplamenteEncadeada {
         
         return lista;
     }
-
 }
