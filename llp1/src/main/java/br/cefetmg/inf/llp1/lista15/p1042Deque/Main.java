@@ -46,7 +46,7 @@ abstract class FilaAbstrata<T> implements Fila<T> {
     }
 }
 
-class Deque<T> extends FilaAbstrata<T> {
+/*class Deque<T> extends FilaAbstrata<T> {
     int inicio, fim, capacidade;
     T itens[];
     
@@ -104,4 +104,4 @@ public class Main {
         Fila<Integer> deque = new Deque<>(1);
         deque.
     }
-}
+}*/
